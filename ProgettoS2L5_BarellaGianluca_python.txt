@@ -1,0 +1,97 @@
+# Programma che gestisce una lista della spesa in base a delle azioni presenti in un menù stampato all'utente
+# Gianluca 06/12/2024
+
+# Funzione caso 1 per aggiungere un elemento in lista
+def aggiungi(nomeLista):
+        elemento = input("\nInserisci l'elemento da aggiungere: ")
+        lista.append(elemento)
+        messaggio = "L'elemento " + elemento + " è stato aggiunto alla lista " + nomeLista
+        print (messaggio)
+
+# Funzione caso 2 per rimuovere un elemento se presente
+# Quisi utilizza "Flag" per capire se l'elemento è presente in lista oppure no, in caso affermativo viene tolto e stampato 
+# in caso negativo l'utente viene avvertito
+def rimuovi(nomeLista):
+        elemento = input("\nInserisci l'elemento da togliere: ")
+        flag = 0
+        for i in lista:
+                if i == elemento:
+                        flag = 1
+                        lista.remove(elemento)
+                        messaggio = "Rimosso l'elemento " + elemento + " dalla lista " + nomeLista
+                        print (messaggio)
+        if flag == 0:
+                messaggio = "L'elemento " + elemento + " non è presente in lista"
+                print (messaggio)
+
+# Funzione 3 stampare la lista in ordine alfabetico
+# viene usato il metodo sort() per stampare la lista in ordine alfabetico
+def stampa_Lista(l, nomeLista):
+        if lista:
+                l.sort()
+                messaggio = "La lista " + nomeLista + "ordinata in ordine alfabetico è:"
+                print (messaggio)
+                for i in l:
+                        print (i)
+        else:
+                print("Non hai ancora inserito niente in lista")
+
+# Funzione 4 salvare la lista su un file
+# Viene aperto un file con un nome predefinito e vengono scritti tutti i vari elementi della lista separati
+def salva_Lista(l, nomeLista):
+        titolo = "Lista della spesa " + nomeLista
+        file_lista = open("Lista_della_spesa.txt", "w")
+        for i in l:
+                elemento = " " + i
+                file_lista.write(elemento)
+        file_lista.close()
+        print ("La lista è stata salvata in un file di testo Lista_della_spesa.txt")
+
+# Funzione 5 caricare una lista da un file
+# Carica da un file tutti gli elementi che verranno aggiunti alla lista tramite append()
+# Gli elementi devono essere separati da un spazio
+def carica_Lista():
+        global lista
+        file_lista = input("Inserisci il nome del file di testo da cui vuoi caricare la lista: ")
+        nuova_lista_strg = open(file_lista, "r").read()
+        nuova_lista = nuova_lista_strg.split()
+        print ("La lista caricata é: ")
+        for i in nuova_lista:
+                elemento = " " + i
+                print (elemento)
+                lista.append(elemento)
+
+
+# Creazione della lista e assegnazione del nome
+lista = []
+nome_lista =input ("Inserisci il nome che vuoi dare alla lista: ")
+
+# Ciclo while per la creazione del menù e acquisizione dell'azione da svolgere
+while True:
+        print ("\n\nLista della spesa: ", nome_lista)
+        print ("Seleziona una delle azioni dal menù digitano il numero corrispondente")
+        print ("1) Aggiungi elemento alla lista")
+        print ("2) Rimuovi elemento dalla lista")
+        print ("3) Visualizza elementi")
+        print ("4) Salva la lista su un file")
+        print ("5) Carica la lista da un file esistente")
+        print ("6) Esci")
+
+        azione =int(input("Hai selezionato: "))
+
+# If che andrà a scegliere il caso opportuno
+        if azione == 1:
+                aggiungi(nome_lista)
+        elif azione == 2:
+                rimuovi(nome_lista)
+        elif azione ==3:
+                stampa_Lista(lista, nome_lista)
+        elif azione == 4:
+                salva_Lista(lista, nome_lista)
+        elif azione == 5:
+                carica_Lista()
+        elif azione == 6:
+                break
+        else:
+                print("Input non valido")
+
